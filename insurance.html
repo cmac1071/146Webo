@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <nav>
   <a class="brand" href="index.html">Pool &amp; Basement</a>
   <div class="nav-links">
@@ -17,7 +16,22 @@
     <a href="insurance.html" class="nav-link active">Insurance</a>
     <a href="permitting.html" class="nav-link">Permitting</a>
   </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="index.html">Overview</a>
+  <a href="contractors.html">Contractors</a>
+  <a href="budget.html">Budget</a>
+  <a href="insurance.html" class="active">Insurance</a>
+  <a href="permitting.html">Permitting</a>
+</div>
+<script>
+  const t=document.getElementById('navToggle'),d=document.getElementById('navDrawer');
+  t.addEventListener('click',()=>{t.classList.toggle('open');d.classList.toggle('open');});
+  document.addEventListener('click',e=>{if(!t.contains(e.target)&&!d.contains(e.target)){t.classList.remove('open');d.classList.remove('open');}});
+</script>
 
 <div class="page-hero">
   <h1>Homeowner's Insurance</h1>
@@ -26,84 +40,34 @@
 
 <div class="page">
   <div class="card">
-
     <div class="phase-header pre">&#x1F535; Pre-Construction</div>
     <div class="checklist">
-      <div class="check-item">
-        <input type="checkbox" id="i1">
-        <label for="i1"><strong>Notify your insurer before signing any contracts.</strong> Non-disclosure of a pool addition can result in denied claims or policy cancellation.</label>
-      </div>
-      <div class="check-item">
-        <input type="checkbox" id="i2">
-        <label for="i2"><strong>Confirm pool classification and coverage limit.</strong> Inground pools are typically &ldquo;Other Structures,&rdquo; capped at ~10% of your dwelling coverage. Verify this is sufficient for your expected pool cost and request an increase if not.</label>
-      </div>
-      <div class="check-item">
-        <input type="checkbox" id="i3">
-        <label for="i3"><strong>Review and increase liability limits.</strong> Standard policies carry $100K&ndash;$300K. Pool ownership warrants a minimum of $300K&ndash;$500K; $1M+ recommended. An umbrella policy is typically the most cost-effective path to higher limits.</label>
-      </div>
-      <div class="check-item">
-        <input type="checkbox" id="i4">
-        <label for="i4"><strong>Confirm policy exclusions specific to pools.</strong> Diving boards, slides, and flood damage are commonly excluded. Get explicit answers in writing.</label>
-      </div>
-      <div class="check-item">
-        <input type="checkbox" id="i5">
-        <label for="i5"><strong>Verify contractor carries its own liability and workers&rsquo; comp.</strong> Obtain certificates of insurance (COIs) before work begins. Your policy does not cover contractor injuries on your property.</label>
-      </div>
-      <div class="check-item">
-        <input type="checkbox" id="i6">
-        <label for="i6"><strong>Ask about builder&rsquo;s risk / course-of-construction coverage.</strong> Confirm whether your policy automatically covers the pool structure during the build phase, or if a rider is needed.</label>
-      </div>
+      <div class="check-item"><input type="checkbox" id="i1"><label for="i1"><strong>Notify your insurer before signing any contracts.</strong> Non-disclosure of a pool addition can result in denied claims or policy cancellation.</label></div>
+      <div class="check-item"><input type="checkbox" id="i2"><label for="i2"><strong>Confirm pool classification and coverage limit.</strong> Inground pools are typically &ldquo;Other Structures,&rdquo; capped at ~10% of your dwelling coverage. Verify this is sufficient and request an increase if not.</label></div>
+      <div class="check-item"><input type="checkbox" id="i3"><label for="i3"><strong>Review and increase liability limits.</strong> Standard policies carry $100K&ndash;$300K. Pool ownership warrants a minimum of $300K&ndash;$500K; $1M+ recommended. An umbrella policy is typically the most cost-effective path.</label></div>
+      <div class="check-item"><input type="checkbox" id="i4"><label for="i4"><strong>Confirm policy exclusions specific to pools.</strong> Diving boards, slides, and flood damage are commonly excluded. Get explicit answers in writing.</label></div>
+      <div class="check-item"><input type="checkbox" id="i5"><label for="i5"><strong>Verify contractor carries its own liability and workers&rsquo; comp.</strong> Obtain certificates of insurance (COIs) before work begins. Your policy does not cover contractor injuries on your property.</label></div>
+      <div class="check-item"><input type="checkbox" id="i6"><label for="i6"><strong>Ask about builder&rsquo;s risk / course-of-construction coverage.</strong> Confirm whether your policy covers the pool structure during the build phase, or if a rider is needed.</label></div>
     </div>
 
     <div class="phase-header during">&#x1F7E0; During Construction</div>
     <div class="checklist">
-      <div class="check-item">
-        <input type="checkbox" id="i7">
-        <label for="i7"><strong>Verify active contractor COIs at each phase.</strong> Request updated certificates if subcontractors are brought on mid-project.</label>
-      </div>
-      <div class="check-item">
-        <input type="checkbox" id="i8">
-        <label for="i8"><strong>Document the site throughout construction.</strong> Dated photos and inspection records support any future damage claim and demonstrate due diligence.</label>
-      </div>
-      <div class="check-item">
-        <input type="checkbox" id="i9">
-        <label for="i9"><strong>Secure open excavations.</strong> An open dig is a liability exposure. Temporary fencing reduces risk and may be required by your insurer or Upton building code.</label>
-      </div>
+      <div class="check-item"><input type="checkbox" id="i7"><label for="i7"><strong>Verify active contractor COIs at each phase.</strong> Request updated certificates if subcontractors are brought on mid-project.</label></div>
+      <div class="check-item"><input type="checkbox" id="i8"><label for="i8"><strong>Document the site throughout construction.</strong> Dated photos and inspection records support any future damage claim and demonstrate due diligence.</label></div>
+      <div class="check-item"><input type="checkbox" id="i9"><label for="i9"><strong>Secure open excavations.</strong> An open dig is a liability exposure. Temporary fencing reduces risk and may be required by your insurer or Upton building code.</label></div>
     </div>
 
     <div class="phase-header post">&#x1F7E2; Post-Construction</div>
     <div class="checklist">
-      <div class="check-item">
-        <input type="checkbox" id="i10">
-        <label for="i10"><strong>Notify insurer that construction is complete.</strong> Provide final cost. Update &ldquo;Other Structures&rdquo; coverage limit to match replacement value if needed.</label>
-      </div>
-      <div class="check-item">
-        <input type="checkbox" id="i11">
-        <label for="i11"><strong>Confirm MA code-required fencing is in place.</strong> 780 CMR requires a 4-ft self-closing, self-latching barrier. Most insurers require this before providing liability coverage &mdash; failure to comply can void claims.</label>
-      </div>
-      <div class="check-item">
-        <input type="checkbox" id="i12">
-        <label for="i12"><strong>Install pool and gate alarms.</strong> Reduces liability exposure and may qualify for a small premium discount.</label>
-      </div>
-      <div class="check-item">
-        <input type="checkbox" id="i13">
-        <label for="i13"><strong>Finalize umbrella policy if not already in place.</strong> Confirm it explicitly covers pool-related incidents.</label>
-      </div>
-      <div class="check-item">
-        <input type="checkbox" id="i14">
-        <label for="i14"><strong>Update home&rsquo;s insured replacement value.</strong> Pool and hardscape add to total property value; ensure dwelling and structures coverage reflects the increase.</label>
-      </div>
-      <div class="check-item">
-        <input type="checkbox" id="i15">
-        <label for="i15"><strong>Winterize annually and maintain the pool.</strong> Damage from neglect or failure to winterize is explicitly excluded from coverage by most policies.</label>
-      </div>
+      <div class="check-item"><input type="checkbox" id="i10"><label for="i10"><strong>Notify insurer that construction is complete.</strong> Provide final cost. Update &ldquo;Other Structures&rdquo; coverage limit to match replacement value if needed.</label></div>
+      <div class="check-item"><input type="checkbox" id="i11"><label for="i11"><strong>Confirm MA code-required fencing is in place.</strong> 780 CMR requires a 4-ft self-closing, self-latching barrier. Most insurers require this before providing liability coverage &mdash; failure to comply can void claims.</label></div>
+      <div class="check-item"><input type="checkbox" id="i12"><label for="i12"><strong>Install pool and gate alarms.</strong> Reduces liability exposure and may qualify for a small premium discount.</label></div>
+      <div class="check-item"><input type="checkbox" id="i13"><label for="i13"><strong>Finalize umbrella policy if not already in place.</strong> Confirm it explicitly covers pool-related incidents.</label></div>
+      <div class="check-item"><input type="checkbox" id="i14"><label for="i14"><strong>Update home&rsquo;s insured replacement value.</strong> Pool and hardscape add to total property value; ensure dwelling and structures coverage reflects the increase.</label></div>
+      <div class="check-item"><input type="checkbox" id="i15"><label for="i15"><strong>Winterize annually and maintain the pool.</strong> Damage from neglect or failure to winterize is explicitly excluded from coverage by most policies.</label></div>
     </div>
 
-    <div class="footnote">
-      &#9888;&#65039; Insurance requirements vary by carrier and policy. Verify all items with your insurance agent.
-      For MA-specific liability and attractive nuisance exposure, consider consulting a local attorney.
-    </div>
-
+    <div class="footnote">&#9888;&#65039; Insurance requirements vary by carrier and policy. Verify all items with your insurance agent. For MA-specific liability and attractive nuisance exposure, consider consulting a local attorney.</div>
   </div>
 </div>
 </body>

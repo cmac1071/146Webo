@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <nav>
   <a class="brand" href="index.html">Pool &amp; Basement</a>
   <div class="nav-links">
@@ -17,7 +16,22 @@
     <a href="insurance.html" class="nav-link">Insurance</a>
     <a href="permitting.html" class="nav-link">Permitting</a>
   </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="index.html">Overview</a>
+  <a href="contractors.html" class="active">Contractors</a>
+  <a href="budget.html">Budget</a>
+  <a href="insurance.html">Insurance</a>
+  <a href="permitting.html">Permitting</a>
+</div>
+<script>
+  const t=document.getElementById('navToggle'),d=document.getElementById('navDrawer');
+  t.addEventListener('click',()=>{t.classList.toggle('open');d.classList.toggle('open');});
+  document.addEventListener('click',e=>{if(!t.contains(e.target)&&!d.contains(e.target)){t.classList.remove('open');d.classList.remove('open');}});
+</script>
 
 <div class="page-hero">
   <h1>Contractor Evaluation</h1>
@@ -25,15 +39,12 @@
 </div>
 
 <div class="page">
-
   <div class="action-bar">
     <a class="drive-link" href="https://drive.google.com/drive/folders/1EN0j-a2XjCC9q99RXL48w9c2hKrCvqSE" target="_blank">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-      Contractor Evaluation Folder
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Contractor Evaluation Folder
     </a>
     <a class="drive-link" href="https://drive.google.com/drive/folders/1EN0j-a2XjCC9q99RXL48w9c2hKrCvqSE" target="_blank">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      Contractor Comparison Spreadsheet
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Contractor Comparison Spreadsheet
     </a>
   </div>
 
@@ -49,12 +60,9 @@
       <div>
         <div class="label">Scope Coverage</div>
         <div class="tags">
-          <span class="tag">Inground Pool</span>
-          <span class="tag">Vinyl Liner</span>
-          <span class="tag">Hardscape</span>
-          <span class="tag">Concrete &amp; Pavers</span>
-          <span class="tag">Outdoor Kitchens</span>
-          <span class="tag">Water Features</span>
+          <span class="tag">Inground Pool</span><span class="tag">Vinyl Liner</span>
+          <span class="tag">Hardscape</span><span class="tag">Concrete &amp; Pavers</span>
+          <span class="tag">Outdoor Kitchens</span><span class="tag">Water Features</span>
           <span class="tag">Pool Maintenance</span>
         </div>
         <div class="label">Strengths</div>
@@ -96,10 +104,8 @@
       <div>
         <div class="label">Scope Coverage</div>
         <div class="tags">
-          <span class="tag">Inground Pool</span>
-          <span class="tag">Above-Ground Pool</span>
-          <span class="tag">Hot Tubs</span>
-          <span class="tag">Swim Spas</span>
+          <span class="tag">Inground Pool</span><span class="tag">Above-Ground Pool</span>
+          <span class="tag">Hot Tubs</span><span class="tag">Swim Spas</span>
           <span class="tag">Saunas</span>
         </div>
         <div class="label">Strengths</div>
@@ -134,11 +140,10 @@
     <h2>Additional Contractors</h2>
     <div class="meta">Slots B&ndash;E available in scoring rubric</div>
     <div class="placeholder">
-      <div class="icon">🔍</div>
+      <div class="icon">&#x1F50D;</div>
       <p>1&ndash;3 additional contractors to be researched and added.<br>Target: 3&ndash;5 total bids before selection.</p>
     </div>
   </div>
-
 </div>
 </body>
 </html>

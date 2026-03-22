@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <nav>
   <a class="brand" href="index.html">Pool &amp; Basement</a>
   <div class="nav-links">
@@ -17,7 +16,22 @@
     <a href="insurance.html" class="nav-link">Insurance</a>
     <a href="permitting.html" class="nav-link">Permitting</a>
   </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="index.html" class="active">Overview</a>
+  <a href="contractors.html">Contractors</a>
+  <a href="budget.html">Budget</a>
+  <a href="insurance.html">Insurance</a>
+  <a href="permitting.html">Permitting</a>
+</div>
+<script>
+  const t=document.getElementById('navToggle'),d=document.getElementById('navDrawer');
+  t.addEventListener('click',()=>{t.classList.toggle('open');d.classList.toggle('open');});
+  document.addEventListener('click',e=>{if(!t.contains(e.target)&&!d.contains(e.target)){t.classList.remove('open');d.classList.remove('open');}});
+</script>
 
 <div class="page-hero">
   <h1>Pool &amp; Basement Project</h1>
@@ -25,7 +39,6 @@
 </div>
 
 <div class="page">
-
   <div class="card">
     <h2>Project Scope</h2>
     <div class="card-grid">
@@ -86,24 +99,19 @@
     <p style="font-size:0.85rem; color:var(--gray-500); margin-top:6px; margin-bottom:16px;">Stored in Google Drive &mdash; access restricted to project team.</p>
     <div class="drive-links">
       <a class="drive-link" href="https://drive.google.com/drive/folders/1htWcuKeWYpopLWyValG4H-BwKs19I35I" target="_blank">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-        Budget
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Budget
       </a>
       <a class="drive-link" href="https://drive.google.com/drive/folders/1EN0j-a2XjCC9q99RXL48w9c2hKrCvqSE" target="_blank">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-        Contractor Evaluation
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Contractor Evaluation
       </a>
       <a class="drive-link" href="https://drive.google.com/drive/folders/1o-U7WCH_w0f4J3xe7LhLAKI4BYmgaAaG" target="_blank">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-        Site &amp; Permitting
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Site &amp; Permitting
       </a>
       <a class="drive-link" href="https://drive.google.com/drive/folders/1_CKLg2X6cd-7pABBWBzJrajK5oQ_XawN" target="_blank">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-        Reference
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Reference
       </a>
     </div>
   </div>
-
 </div>
 </body>
 </html>
