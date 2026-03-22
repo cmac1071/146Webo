@@ -4,70 +4,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Budget — Pool &amp; Basement Project</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav>
-  <a class="brand" href="index.html">Pool &amp; Basement Project</a>
-  <a href="index.html">Overview</a>
-  <a href="contractors.html">Contractors</a>
-  <a href="budget.html" class="active">Budget</a>
-  <a href="insurance.html">Insurance</a>
-  <a href="permitting.html">Permitting</a>
+  <a class="brand" href="index.html">Pool &amp; Basement</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Overview</a>
+    <a href="contractors.html" class="nav-link">Contractors</a>
+    <a href="budget.html" class="nav-link active">Budget</a>
+    <a href="insurance.html" class="nav-link">Insurance</a>
+    <a href="permitting.html" class="nav-link">Permitting</a>
+  </div>
 </nav>
 
-<div class="page">
-  <div class="page-header">
-    <h1>Budget</h1>
-    <p>Preliminary estimates will be populated once contractor quotes are received. Full detail in the project budget spreadsheet on Google Drive.</p>
-  </div>
+<div class="page-hero">
+  <h1>Budget</h1>
+  <p>Preliminary estimates will be populated once contractor quotes are received.</p>
+</div>
 
-  <div class="card">
-    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:16px;">
-      <h2>Project Budget Spreadsheet</h2>
-      <span class="badge pending">Awaiting Quotes</span>
-    </div>
+<div class="page">
+
+  <div class="action-bar">
     <a class="drive-link" href="https://drive.google.com/drive/folders/1htWcuKeWYpopLWyValG4H-BwKs19I35I" target="_blank">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
       Open Budget Spreadsheet
     </a>
-
-    <div class="placeholder">
-      <div class="icon">📊</div>
-      <p>Contractor site assessments in progress.<br>Budget estimates will be added here once quotes are received.</p>
-    </div>
   </div>
 
-  <div class="card" style="margin-top:20px;">
-    <h2>Scope Budget Buckets</h2>
-    <div style="margin-top:12px; display:flex; flex-direction:column; gap:10px;">
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
+      <h2>Scope Budget Buckets</h2>
+      <span class="badge pending">Awaiting Quotes</span>
+    </div>
 
-      <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.9rem; padding:10px 0; border-bottom:1px solid var(--gray-200);">
-        <span>Inground pool &amp; equipment</span>
-        <span class="badge pending">TBD</span>
-      </div>
-      <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.9rem; padding:10px 0; border-bottom:1px solid var(--gray-200);">
-        <span>Retaining wall</span>
-        <span class="badge pending">TBD</span>
-      </div>
-      <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.9rem; padding:10px 0; border-bottom:1px solid var(--gray-200);">
-        <span>Outdoor hardscape (patio, coping, fire pit, lighting)</span>
-        <span class="badge pending">TBD</span>
-      </div>
-      <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.9rem; padding:10px 0; border-bottom:1px solid var(--gray-200);">
-        <span>Basement finishing &amp; 3/4 bath</span>
-        <span class="badge pending">TBD</span>
-      </div>
-      <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.9rem; padding:10px 0; border-bottom:1px solid var(--gray-200);">
-        <span>Permitting &amp; engineering (NOI, PE drawings)</span>
-        <span class="badge pending">TBD</span>
-      </div>
-      <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.9rem; padding:10px 0;">
-        <span>Contingency</span>
-        <span class="badge pending">TBD</span>
-      </div>
+    <div class="status-row"><span>Inground pool &amp; equipment</span><span class="badge pending">TBD</span></div>
+    <div class="status-row"><span>Retaining wall</span><span class="badge pending">TBD</span></div>
+    <div class="status-row"><span>Outdoor hardscape (patio, coping, fire pit, lighting)</span><span class="badge pending">TBD</span></div>
+    <div class="status-row"><span>Basement finishing &amp; 3/4 bath</span><span class="badge pending">TBD</span></div>
+    <div class="status-row"><span>Permitting &amp; engineering (NOI, PE drawings)</span><span class="badge pending">TBD</span></div>
+    <div class="status-row"><span>Contingency</span><span class="badge pending">TBD</span></div>
 
+    <div class="placeholder">
+      <div class="icon">&#x1F4CA;</div>
+      <p>Contractor site assessments in progress.<br>Budget estimates will be added here once quotes are received.</p>
     </div>
   </div>
 
