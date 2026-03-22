@@ -75,7 +75,10 @@ nav .nav-links {
   display: flex;
   align-items: center;
   gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+nav .nav-links::-webkit-scrollbar { display: none; }
 
 nav a.nav-link {
   color: rgba(255,255,255,0.65);
