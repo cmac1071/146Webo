@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pool Quote Comparison — Pool &amp; Basement Project</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── COMPARISON TABLE ── */
+    .cmp-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: var(--radius);
+      border: 1px solid var(--gray-200);
+      box-shadow: var(--shadow);
+      background: var(--white);
+    }
+
+    .cmp-table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 720px;
+      font-size: 0.845rem;
+    }
+
+    /* Column widths */
+    .cmp-table colgroup .col-feature { width: 210px; }
+    .cmp-table colgroup .col-vinyl   { width: calc((100% - 210px) / 3); }
+    .cmp-table colgroup .col-fg      { width: calc((100% - 210px) / 3); }
+    .cmp-table colgroup .col-gunite  { width: calc((100% - 210px) / 3); }
+
+    /* Header */
+    .cmp-table thead th {
+      padding: 14px 16px 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.82rem;
+      border-bottom: 2px solid var(--gray-200);
+      vertical-align: bottom;
+      line-height: 1.4;
+    }
+    .cmp-table thead th.col-feature {
+      background: var(--gray-50);
+      color: var(--gray-500);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      position: sticky;
+      left: 0;
+      z-index: 2;
+      border-right: 2px solid var(--gray-200);
+    }
+    .cmp-table thead th .co-name {
+      display: block;
+      color: var(--navy);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+    .cmp-table thead th .co-sub {
+      display: block;
+      color: var(--gray-400);
+      font-size: 0.75rem;
+      font-weight: 400;
+      white-space: normal;
+    }
+    .cmp-table thead th.col-vinyl  { background: #fefce8; border-left: 3px solid #fbbf24; }
+    .cmp-table thead th.col-fg     { background: #eff6ff; border-left: 3px solid #3b82f6; }
+    .cmp-table thead th.col-gunite { background: #f0fdf4; border-left: 3px solid #22c55e; }
+
+    /* Body cells */
+    .cmp-table tbody td {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--gray-100);
+      vertical-align: top;
+      color: var(--gray-700);
+      line-height: 1.5;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      max-width: 0;
+    }
+    .cmp-table tbody td.col-feature {
+      font-weight: 600;
+      font-size: 0.82rem;
+      color: var(--gray-700);
+      background: var(--gray-50);
+      position: sticky;
+      left: 0;
+      z-index: 1;
+      border-right: 2px solid var(--gray-200);
+    }
+    .cmp-table tbody td.col-vinyl  { background: #fffef5; }
+    .cmp-table tbody td.col-fg     { background: #fafcff; }
+    .cmp-table tbody td.col-gunite { background: #fafffe; }
+
+    /* Section header rows */
+    .cmp-table tr.section-row td {
+      background: var(--navy);
+      color: rgba(255,255,255,0.9);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 7px 16px;
+      border-bottom: none;
+    }
+    .cmp-table tr.section-row td.col-feature {
+      background: var(--navy);
+      color: rgba(255,255,255,0.9);
+      border-right-color: rgba(255,255,255,0.15);
+      z-index: 2;
+    }
+
+    /* Highlight rows (pricing) */
+    .cmp-table tr.highlight-row td {
+      background: var(--navy) !important;
+      color: var(--white) !important;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .cmp-table tr.highlight-row td.col-feature {
+      border-right-color: rgba(255,255,255,0.2);
+    }
+
+    /* Pills */
+    .inc, .exc, .addon, .tbd, .caveat {
+      display: inline-block;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      white-space: normal;
+      word-wrap: break-word;
+    }
+    .inc    { background: var(--green-lt);  color: var(--green);  border: 1px solid var(--green-border); }
+    .exc    { background: #fef2f2;          color: #b91c1c;        border: 1px solid #fecaca; }
+    .addon  { background: var(--amber-lt);  color: #b45309;        border: 1px solid var(--amber-border); }
+    .tbd    { background: var(--gray-100);  color: var(--gray-500); border: 1px solid var(--gray-200); }
+    .caveat { background: #fef9e7;          color: #92400e;        border: 1px solid #fde68a; font-weight:400; font-size:0.75rem; }
+
+    /* Sub-notes inside cells */
+    .note {
+      display: block;
+      font-size: 0.77rem;
+      color: var(--gray-400);
+      font-weight: 400;
+      margin-top: 4px;
+      line-height: 1.45;
+    }
+
+    /* Big price display */
+    .price-big {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .price-sub {
+      display: block;
+      font-size: 0.76rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.65);
+      margin-top: 2px;
+    }
+
+    /* Key callouts */
+    .callout-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .callout {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .callout .callout-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--gray-400);
+      margin-bottom: 6px;
+    }
+    .callout .callout-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .callout .callout-price {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .callout .callout-note {
+      font-size: 0.78rem;
+      color: var(--gray-500);
+      line-height: 1.5;
+    }
+    .callout.vinyl  { border-top: 4px solid #fbbf24; }
+    .callout.vinyl .callout-price  { color: #b45309; }
+    .callout.fg     { border-top: 4px solid #3b82f6; }
+    .callout.fg .callout-price     { color: #1d4ed8; }
+    .callout.gunite { border-top: 4px solid #22c55e; }
+    .callout.gunite .callout-price { color: #15803d; }
+
+    .disclaimer {
+      background: var(--amber-lt);
+      border: 1px solid var(--amber-border);
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
+      font-size: 0.84rem;
+      color: #92400e;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .disclaimer strong { color: #78350f; }
+
+    @media (max-width: 640px) {
+      .callout-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="index.html">Pool &amp; Basement</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Overview</a>
+    <a href="contractors.html" class="nav-link">Contractors</a>
+    <a href="pool-comparison.html" class="nav-link active">Quote Comparison</a>
+    <a href="budget.html" class="nav-link">Budget</a>
+    <a href="insurance.html" class="nav-link">Insurance</a>
+    <a href="permitting.html" class="nav-link">Permitting</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="index.html">Overview</a>
+  <a href="contractors.html">Contractors</a>
+  <a href="pool-comparison.html" class="active">Quote Comparison</a>
+  <a href="budget.html">Budget</a>
+  <a href="insurance.html">Insurance</a>
+  <a href="permitting.html">Permitting</a>
+</div>
+<script>
+  const t=document.getElementById('navToggle'),d=document.getElementById('navDrawer');
+  t.addEventListener('click',()=>{t.classList.toggle('open');d.classList.toggle('open');});
+  document.addEventListener('click',e=>{if(!t.contains(e.target)&&!d.contains(e.target)){t.classList.remove('open');d.classList.remove('open');}});
+</script>
+
+<div class="page-hero">
+  <h1>Pool Quote Comparison</h1>
+  <p>Side-by-side breakdown of the three pool quotes received &mdash; vinyl liner, fiberglass, and gunite. Pool scope only; excludes retaining wall, hardscape, basement, and other separate line items.</p>
+</div>
+
+<div class="page" style="max-width:1100px;">
+
+  <div class="disclaimer">
+    <strong>These quotes are not fully apples-to-apples.</strong> Pool sizes differ: Lakeside 18&times;36 (648 sq&nbsp;ft), Chapman/Latham ~15&times;35 (~525 sq&nbsp;ft), Aquascape 20&times;40 (800 sq&nbsp;ft). Construction methods also differ in durability, finish longevity, and customizability. Use this comparison to understand what each contractor includes, not just headline price.
+  </div>
+
+  <div class="callout-grid">
+    <div class="callout vinyl">
+      <div class="callout-label">Vinyl Liner &mdash; Lakeside Swimming Pools</div>
+      <div class="callout-name">18&prime;&times;36&prime; &mdash; 648 sq ft</div>
+      <div class="callout-price">$68,490</div>
+      <div class="callout-note">Base price. Add heat pump +$7,495, salt +$4,900, safety cover +$3,350 &rarr; <strong>$84,235</strong> before electrical &amp; permits. Liner replacement every 10&ndash;15 yrs (~$8K&ndash;$15K).</div>
+    </div>
+    <div class="callout fg">
+      <div class="callout-label">Fiberglass &mdash; Chapman / Latham</div>
+      <div class="callout-name">Bermuda ~15&prime;&times;35&prime; &mdash; ~525 sq ft</div>
+      <div class="callout-price">$95,250</div>
+      <div class="callout-note">Base price includes electrical &amp; 2 LED lights. Add heat pump +$6,600, salt +$3,300 &rarr; <strong>$105,150</strong>. Lifetme shell; no replastering. Quote expires April 10, 2026.</div>
+    </div>
+    <div class="callout gunite">
+      <div class="callout-label">Gunite &mdash; Aquascape via New View</div>
+      <div class="callout-name">20&prime;&times;40&prime; &mdash; 800 sq ft</div>
+      <div class="callout-price">$102,000</div>
+      <div class="callout-note">Base price. Add lights +$3K, heater +$5.6K, salt +$3K, remote +$6.8K &rarr; <strong>$120,400</strong>. Electric, permits, coping, water all excluded from base.</div>
+    </div>
+  </div>
+
+  <div class="cmp-wrap">
+    <table class="cmp-table">
+      <colgroup>
+        <col class="col-feature">
+        <col class="col-vinyl">
+        <col class="col-fg">
+        <col class="col-gunite">
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="col-feature">Feature</th>
+          <th class="col-vinyl">
+            <span class="co-name">Lakeside Swimming Pools</span>
+            <span class="co-sub">Vinyl Liner &nbsp;&middot;&nbsp; North Smithfield, RI &nbsp;&middot;&nbsp; Quote 3/30/2026</span>
+          </th>
+          <th class="col-fg">
+            <span class="co-name">Chapman Construction / Latham</span>
+            <span class="co-sub">Fiberglass &nbsp;&middot;&nbsp; Uxbridge, MA &nbsp;&middot;&nbsp; Quote 3/31/2026</span>
+          </th>
+          <th class="col-gunite">
+            <span class="co-name">Aquascape Pools via New View</span>
+            <span class="co-sub">Gunite &nbsp;&middot;&nbsp; Westborough, MA &nbsp;&middot;&nbsp; Quote 4/1/2026</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- OVERVIEW -->
+        <tr class="section-row">
+          <td class="col-feature">Overview</td>
+          <td colspan="3"></td>
+        </tr>
+        <tr>
+          <td class="col-feature">Pool type</td>
+          <td>Vinyl liner, monolithic concrete wall</td>
+          <td>Fiberglass factory shell (Latham)</td>
+          <td>Gunite / shotcrete (custom, poured in place)</td>
+        </tr>
+        <tr>
+          <td class="col-feature">Pool size</td>
+          <td>18&prime;&times;36&prime; (648 sq ft)</td>
+          <td>~15&prime;&times;35&prime; (~525 sq ft)
+            <span class="note">Bermuda model; Fiji &amp; Kingston also available</span>
+          </td>
+          <td>20&prime;&times;40&prime; (800 sq ft)</td>
+        </tr>
+        <tr>
+          <td class="col-feature">Depth</td>
+          <td><span class="tbd">Not specified</span></td>
+          <td><span class="tbd">Catalog depth (Latham model)</span></td>
+          <td>3&prime;&ndash;8&prime; (variable)</td>
+        </tr>
+        <tr>
+          <td class="col-feature">Shape</td>
+          <td>Rectangular</td>
+          <td>Rectangular (Kingston) or Freeform (Fiji/Bermuda)</td>
+          <td>Custom Rectangle &mdash; fully customizable</td>
+        </tr>
+        <tr>
+          <td class="col-feature">Design flexibility</td>
+          <td>Standard shapes; vinyl allows custom sizes</td>
+          <td>Catalog shapes only (Latham models)</td>
+          <td>Fully custom: any shape, depth, feature placement</td>
+        </tr>
+
+        <!-- STRUCTURE -->
+        <tr class="section-row">
+          <td class="col-feature">Shell &amp; Structure</td>
+          <td colspan="3"></td>
+        </tr>
+        <tr>
+          <td class="col-feature">Shell / wall construction</td>
+          <td>10&Prime; monolithic poured concrete wall + 27-mil commercial vinyl liner</td>
+          <td>Factory-molded fiberglass shell (single piece, delivered by truck)</td>
+          <td>Steel rebar cage + pneumatically applied gunite (shotcrete) &mdash; monolithic</td>
+        </tr>
+        <tr>
+          <td class="col-feature">Structural warranty</td>
+          <td>1-year materials &amp; equipment warranty
+            <span class="note">Manufacturer certificates released on final payment only</span>
+          </td>
+          <td>Latham lifetime structural warranty on shell
+            <span class="note">Chapman workmanship warranty duration TBD (follow-up Q12)</span>
+          </td>
+          <td><span class="inc">✓ Lifetime warranty on gunite shell</span></td>
+        </tr>
+        <tr>
+          <td class="col-feature">Interior finish longevity</td>
+          <td>Vinyl liner replacement every 10&ndash;15 yrs
+            <span class="note">~$8K&ndash;$15K per replacement</span>
+          </td>
+          <td>Gelcoat finish &mdash; no replastering required; may need refinishing after 20+ yrs</td>
+          <td>White Marcite plaster &mdash; replaster typically needed every 10&ndash;15 yrs
+            <span class="note">~$8K&ndash;$15K per replaster</span>
+          </td>
+        </tr>
+
+        <!-- WHAT'S INCLUDED -->
+        <tr class="section-row">
+          <td class="col-feature">Included in Base Price</td>
+          <td colspan="3"></td>
+        </tr>
+        <tr>
+          <td class="col-feature">Excavation</td>
+          <td><span class="inc">✓ Included</span>
+            <span class="note">Rock/ledge extra; hillside costs open-ended</span>
+          </td>
+          <td><span class="inc">✓ Included</span>
+            <span class="note">Rock/ledge extra</span>
+          </td>
+          <td><span class="caveat">8 hrs &ldquo;normal&rdquo; only</span>
+            <span class="note">Rock, clay, buried debris, ledge = extra. Crushed stone $1,500/20-ton truck if needed.</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-feature">Plumbing</td>
+          <td><span class="inc">✓ Included</span></td>
+          <td><span class="inc">✓ Included</span> <span class="note">PVC schedule 40</span></td>
+          <td><span class="caveat">25&prime; PVC run included</span>
+            <span class="note">Additional plumbing beyond 25 ft = $35/lineal foot</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-feature">Electrical</td>
+          <td><span class="exc">✗ Not included</span>
+            <span class="note">Licensed electrician hired separately by owner</span>
+          </td>
+          <td><span class="inc">✓ Included</span>
+            <span class="note">Electrician install included for pump, filter, and lights</span>
+          </td>
+          <td><span class="exc">✗ Not included</span>
+            <span class="note">All electric explicitly excluded &mdash; owner hires separately</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-feature">Pump</td>
+          <td><span class="inc">✓ Included</span> <span class="note">Brand not specified</span></td>
+          <td><span class="inc">✓ Included</span> <span class="note">Hayward VS500 variable speed, built-in timer</span></td>
+          <td><span class="inc">✓ Included</span> <span class="note">Brand not specified</span></td>
+        </tr>
+        <tr>
+          <td class="col-feature">Filter</td>
+          <td><span class="inc">✓ Included</span> <span class="note">Brand not specified</span></td>
+          <td><span class="inc">✓ Included</span> <span class="note">Hayward Pro Series sand filter</span></td>
+          <td><span class="inc">✓ Included</span> <span class="note">Brand not specified</span></td>
+        </tr>
+        <tr>
+          <td class="col-feature">Chlorination / sanitizer</td>
+          <td><span class="tbd">Not specified</span></td>
+          <td><span class="tbd">Not specified</span></td>
+          <td><span class="inc">✓ Automatic chlorinator included</span></td>
+        </tr>
+        <tr>
+          <td class="col-feature">LED pool lighting</td>
+          <td><span class="caveat">1 mini light included</span>
+            <span class="note">Small single light; no color-changing</span>
+          </td>
+          <td><span class="inc">✓ 2 multicolor LED lights included</span>
+            <span class="note">PAL brand, 80&prime; cord, w/remote. Additional lights +$1,000 ea.</span>
+          </td>
+          <td><span class="exc">✗ Not included</span>
+            <span class="note">2 colored LED lights = +$3,000 add-on</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-feature">Heater</td>
+          <td><span class="addon">+ $7,495</span>
+            <span class="note">Aqua Comfort heat pump</span>
+          </td>
+          <td><span class="addon">+ $6,600</span>
+            <span class="note">Hayward Electric Heat Pump. Note: quote mentions gas line hookup &mdash; likely a typo; follow-up Q5.</span>
+          </td>
+          <td><span class="addon">+ $5,600</span>
+            <span class="note">Gas heater 400K BTU. Gas line &amp; hookup excluded.</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-feature">Salt system</td>
+          <td><span class="addon">+ $4,900</span>
+            <span class="note">Hayward PL salt system</span>
+          </td>
+          <td><span class="addon">+ $3,300</span>
+            <span class="note">Hayward Aquarite 25K</span>
+          </td>
+          <td><span class="addon">+ $3,000</span>
+            <span class="note">Brand not specified</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-feature">Automation / remote</td>
+          <td><span class="tbd">Not specified</span></td>
+          <td><span class="caveat">VS500 built-in timer included</span>
+            <span class="note">Full app-based automation not specified; open question</span>
+          </td>
+          <td><span class="addon">+ $6,800</span>
+            <span class="note">Remote/automation system; explicitly excluded from base</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-feature">Interior finish</td>
+          <td>27-mil commercial vinyl liner
+            <span class="note">Sunledge w/stairs available +$7,900</span>
+          </td>
+          <td>Latham factory gelcoat
+            <span class="note">Crystal upgrade +$2,500 (free until April 10, 2026)</span>
+          </td>
+          <td>White Marcite plaster
+            <span class="note">Standard finish; quartz or pebble upgrades not mentioned</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-feature">Tile / border</td>
+          <td><span class="tbd">Not specified</span></td>
+          <td><span class="tbd">Not specified</span>
+            <span class="note">Fiberglass has integral finish; waterline tile may be available</span>
+          </td>
+          <td><span class="inc">✓ 6&Prime; ceramic tile border included</span>
+            <span class="note">In-stock frost-proof tile</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-feature">Coping (perimeter cap)</td>
+          <td><span class="tbd">Not specified</span></td>
+          <td><span class="exc">✗ Not included</span>
+            <span class="note">Separate line item</span>
+          </td>
+          <td><span class="exc">✗ Not included</span>
+            <span class="note">Cantilever for pool/coping explicitly excluded</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-feature">Steps &amp; entry features</td>
+          <td><span class="inc">✓ Corner step/bench included</span>
+            <span class="note">Sunledge w/integrated stairs +$7,900</span>
+          </td>
+          <td><span class="inc">✓ In-shell steps (Latham catalog design)</span></td>
+          <td><span class="inc">✓ 3 shallow end steps w/4&Prime; bench + deep end swim out</span></td>
+        </tr>
+        <tr>
+          <td class="col-feature">Safety / winter cover</td>
+          <td><span class="addon">+ $3,350</span>
+            <span class="note">18&times;36 mesh safety cover</span>
+          </td>
+          <td><span class="tbd">TBD &mdash; not quoted</span>
+            <span class="note">Open question (follow-up Q2 &amp; Q3)</span>
+          </td>
+          <td><span class="exc">✗ Not specified in quote</span></td>
+        </tr>
+        <tr>
+          <td class="col-feature">Startup chemicals</td>
+          <td><span class="inc">✓ Starter kit included</span></td>
+          <td><span class="tbd">Not specified</span></td>
+          <td><span class="inc">✓ Chemicals, maintenance kit, brush + on-site operations class</span></td>
+        </tr>
+        <tr>
+          <td class="col-feature">Year-1 winterization</td>
+          <td><span class="inc">✓ Included</span>
+            <span class="note">Labor for 1st winterization; winter plugs/gizmo included</span>
+          </td>
+          <td><span class="tbd">Not specified</span>
+            <span class="note">Open follow-up question</span>
+          </td>
+          <td><span class="exc">✗ Not included</span></td>
+        </tr>
+        <tr>
+          <td class="col-feature">Water to fill pool</td>
+          <td><span class="tbd">Not specified</span></td>
+          <td><span class="inc">✓ Included</span></td>
+          <td><span class="exc">✗ Not included</span>
+            <span class="note">~18,000&ndash;22,000 gallons for 20&times;40; bulk tanker ~$800&ndash;$1,500</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-feature">Permits</td>
+          <td><span class="exc">✗ Not included</span>
+            <span class="note">Owner responsibility</span>
+          </td>
+          <td><span class="caveat">Submission &amp; process included</span>
+            <span class="note">Permit <em>fees</em> billed separately to customer</span>
+          </td>
+          <td><span class="exc">✗ Not included</span>
+            <span class="note">Building permits, Board of Health, engineering plans all explicitly excluded</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-feature">Plot plan / survey</td>
+          <td><span class="tbd">Not specified</span></td>
+          <td><span class="caveat">Often draw to scale (sufficient in most cases)</span>
+            <span class="note">Certified plot plan billed to customer if required</span>
+          </td>
+          <td><span class="exc">✗ Owner must supply all required plot plans</span></td>
+        </tr>
+        <tr>
+          <td class="col-feature">Fencing (MA 780 CMR)</td>
+          <td><span class="exc">✗ Owner responsibility</span>
+            <span class="note">Per Lakeside contract</span>
+          </td>
+          <td><span class="tbd">Not specified</span>
+            <span class="note">Confirm MA fencing requirement coverage (follow-up Q)</span>
+          </td>
+          <td><span class="exc">✗ Landscaping and fencing explicitly excluded</span></td>
+        </tr>
+        <tr>
+          <td class="col-feature">Landscaping / loam / seed</td>
+          <td><span class="exc">✗ Not included</span></td>
+          <td><span class="exc">✗ Not included</span></td>
+          <td><span class="exc">✗ Not included</span></td>
+        </tr>
+        <tr>
+          <td class="col-feature">Rock / ledge removal</td>
+          <td><span class="exc">✗ Extra charge</span>
+            <span class="note">Open-ended cost for hillside site</span>
+          </td>
+          <td><span class="exc">✗ Extra charge</span></td>
+          <td><span class="exc">✗ Extra charge</span>
+            <span class="note">Blasting if needed; crushed stone $1,500/20-ton truck</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-feature">Insurance coverage</td>
+          <td><span class="tbd">Not specified in quote</span></td>
+          <td><span class="tbd">Not specified in quote</span></td>
+          <td><span class="inc">✓ Workman&apos;s Comp, Public Liability &amp; Property Damage included</span></td>
+        </tr>
+
+        <!-- PRICING -->
+        <tr class="section-row">
+          <td class="col-feature">Pricing</td>
+          <td colspan="3"></td>
+        </tr>
+        <tr class="highlight-row">
+          <td class="col-feature">Base quote (pool only)</td>
+          <td>
+            <span class="price-big">$68,490</span>
+            <span class="price-sub">18&times;36 vinyl liner</span>
+          </td>
+          <td>
+            <span class="price-big">$95,250</span>
+            <span class="price-sub">Bermuda fiberglass (~15&times;35) &mdash; most expensive of 3 models<br>Fiji $92,350 &nbsp;&middot;&nbsp; Kingston $94,600</span>
+          </td>
+          <td>
+            <span class="price-big">$102,000</span>
+            <span class="price-sub">20&times;40 custom rectangle gunite</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-feature">Add heater + salt</td>
+          <td><span class="addon">+ $12,395</span>
+            <span class="note">Heat pump $7,495 + salt $4,900</span>
+          </td>
+          <td><span class="addon">+ $9,900</span>
+            <span class="note">Heat pump $6,600 + salt $3,300</span>
+          </td>
+          <td><span class="addon">+ $8,600</span>
+            <span class="note">Gas heater $5,600 + salt $3,000</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-feature">Add lights + automation</td>
+          <td><span class="caveat">1 mini light already in base</span>
+            <span class="note">Color-changing upgrade not quoted</span>
+          </td>
+          <td><span class="inc">2 multicolor LED already in base</span></td>
+          <td><span class="addon">+ $9,800</span>
+            <span class="note">2 LED lights $3,000 + remote system $6,800</span>
+          </td>
+        </tr>
+        <tr class="highlight-row">
+          <td class="col-feature">Comparable &ldquo;ready to swim&rdquo; total
+            <span style="display:block;font-size:0.73rem;font-weight:400;color:rgba(255,255,255,0.6);margin-top:3px;">Heater + salt + lights</span>
+          </td>
+          <td>
+            <span class="price-big">$84,235</span>
+            <span class="price-sub">+ safety cover $3,350 = $87,585. Electric &amp; permits additional.</span>
+          </td>
+          <td>
+            <span class="price-big">$105,150</span>
+            <span class="price-sub">Electrical included. Permits process included; fees extra.</span>
+          </td>
+          <td>
+            <span class="price-big">$120,400</span>
+            <span class="price-sub">Electric, permits, coping, water still additional on top.</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-feature">Notable add-ons / upgrades</td>
+          <td>Vanishing edge (long side): +$29,000<br>Sunledge w/stairs: +$7,900</td>
+          <td>Crystal color upgrade: +$2,500 (free until April 10)<br>Extra light: +$1,000 ea<br>Cascades: +$2,700&ndash;$3,000 ea</td>
+          <td>Negative edge 18 ft: +$18,000<br>Deep end swim out upgrade: +$1,000</td>
+        </tr>
+        <tr>
+          <td class="col-feature">Key exclusions not priced</td>
+          <td>Electrical (separate contractor)<br>Permits (owner)<br>Coping<br>Landscaping</td>
+          <td>Coping<br>Safety cover (TBD)<br>Landscaping<br>Permit fees</td>
+          <td>All electrical (separate contractor)<br>All permits &amp; engineering<br>Coping / cantilever<br>Water for pool<br>Landscaping &amp; fencing<br>Dumping fees</td>
+        </tr>
+
+        <!-- TERMS -->
+        <tr class="section-row">
+          <td class="col-feature">Contract Terms</td>
+          <td colspan="3"></td>
+        </tr>
+        <tr>
+          <td class="col-feature">Deposit</td>
+          <td>25% (first of four equal payments)</td>
+          <td><strong>45%</strong> to order shell</td>
+          <td>5% deposit</td>
+        </tr>
+        <tr>
+          <td class="col-feature">Non-refundable policy</td>
+          <td>No refunds after 72 hours of signing</td>
+          <td><span class="exc">45% deposit NON-REFUNDABLE</span>
+            <span class="note">Special order pool &mdash; ~$42,863 at risk on Bermuda. Critical open issue vs. permit timing.</span>
+          </td>
+          <td><span class="tbd">Not explicitly stated in quote</span></td>
+        </tr>
+        <tr>
+          <td class="col-feature">Payment schedule</td>
+          <td>4 &times; 25% &mdash; order / excavation / walls / liner install</td>
+          <td>45% deposit &rarr; 25% excavation &rarr; 15% delivery &rarr; 10% backfill &rarr; 4% equipment &rarr; 1% completion</td>
+          <td>5% deposit. Standard: 40% excav / 55% gunite / 5% interior. Fall/Spring: 30% / 40% / 15% tile / 10% equip / 8.5% interior</td>
+        </tr>
+        <tr>
+          <td class="col-feature">Quote expiration</td>
+          <td><span class="tbd">Not stated</span></td>
+          <td><span class="exc">April 10, 2026</span>
+            <span class="note">Crystal upgrade also expires April 10</span>
+          </td>
+          <td><span class="tbd">Not stated</span></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <p class="footnote">Quotes received: Lakeside 3/30/2026 &nbsp;&middot;&nbsp; Chapman/Latham 3/31/2026 &nbsp;&middot;&nbsp; Aquascape via New View 4/1/2026. All figures from contractor-provided quote documents. Open questions remain for each contractor &mdash; see Contractors page and comparison spreadsheet for full details.</p>
+</div>
+</body>
+</html>
