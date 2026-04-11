@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photos — Pool &amp; Basement Project</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .photo-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: box-shadow 0.2s, transform 0.15s;
+    }
+
+    .photo-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-card.wide {
+      grid-column: span 2;
+    }
+
+    .photo-card.wide img {
+      height: 260px;
+    }
+
+    .photo-caption {
+      padding: 12px 16px 14px;
+      font-size: 0.84rem;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+
+    .photo-caption strong {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: 2px;
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 20, 40, 0.92);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox-inner {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .lightbox-inner img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: var(--radius);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    }
+
+    .lightbox-caption {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -48px;
+      right: -8px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: white;
+      font-size: 1.4rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .lightbox-close:hover { background: rgba(255,255,255,0.22); }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .lightbox-nav:hover { background: rgba(255,255,255,0.22); }
+    .lightbox-prev { left: -60px; }
+    .lightbox-next { right: -60px; }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--gray-400);
+      margin: 32px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .section-label:first-of-type { margin-top: 0; }
+
+    @media (max-width: 640px) {
+      .photo-card.wide { grid-column: span 1; }
+      .photo-card.wide img { height: 220px; }
+      .lightbox-prev { left: -4px; }
+      .lightbox-next { right: -4px; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="index.html">Pool &amp; Basement</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Overview</a>
+    <a href="contractors.html" class="nav-link">Contractors</a>
+    <a href="pool-comparison.html" class="nav-link">Quote Comparison</a>
+    <a href="budget.html" class="nav-link">Budget</a>
+    <a href="insurance.html" class="nav-link">Insurance</a>
+    <a href="permitting.html" class="nav-link">Permitting</a>
+    <a href="photos.html" class="nav-link active">Photos</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="index.html">Overview</a>
+  <a href="contractors.html">Contractors</a>
+  <a href="pool-comparison.html">Quote Comparison</a>
+  <a href="budget.html">Budget</a>
+  <a href="insurance.html">Insurance</a>
+  <a href="permitting.html">Permitting</a>
+  <a href="photos.html" class="active">Photos</a>
+</div>
+<script>
+  const t=document.getElementById('navToggle'),d=document.getElementById('navDrawer');
+  t.addEventListener('click',()=>{t.classList.toggle('open');d.classList.toggle('open');});
+  document.addEventListener('click',e=>{if(!t.contains(e.target)&&!d.contains(e.target)){t.classList.remove('open');d.classList.remove('open');}});
+</script>
+
+<div class="page-hero">
+  <h1>Project Photos</h1>
+  <p>146 Westboro Rd, Upton MA &mdash; before construction begins. April 2026.</p>
+</div>
+
+<div class="page">
+
+  <div class="section-label">Before &mdash; Existing Backyard</div>
+
+  <div class="photo-grid" id="photoGrid">
+
+    <div class="photo-card" data-index="0" onclick="openLightbox(0)">
+      <img src="Photos/Before 1.jpeg" alt="View from deck toward backyard">
+      <div class="photo-caption">
+        <strong>View from deck &mdash; looking out</strong>
+        Flat lawn area between the deck stairs and the drop. Future pool and patio zone. Wooded wetland area visible in background.
+      </div>
+    </div>
+
+    <div class="photo-card" data-index="1" onclick="openLightbox(1)">
+      <img src="Photos/Before 2.jpeg" alt="Side view showing hillside grade">
+      <div class="photo-caption">
+        <strong>Side view &mdash; hillside grade</strong>
+        Shows the full extent of the slope from the house level down toward the treeline. Retaining wall will run across this grade to create a level pool terrace.
+      </div>
+    </div>
+
+    <div class="photo-card" data-index="2" onclick="openLightbox(2)">
+      <img src="Photos/Before 3.jpeg" alt="Rear of house with full slope visible">
+      <div class="photo-caption">
+        <strong>Rear of house &mdash; slope and deck</strong>
+        Wide view of the rear elevation showing the deck, stairs, and the sloping yard. The pool will be set back 7 ft further than originally planned to maximize patio space between deck and pool edge.
+      </div>
+    </div>
+
+    <div class="photo-card" data-index="3" onclick="openLightbox(3)">
+      <img src="Photos/Before 4.jpeg" alt="Side yard view looking back">
+      <div class="photo-caption">
+        <strong>Left side yard</strong>
+        Looking back toward the yard from the left side of the house. Shows the flat zone and the beginning of the grade transition.
+      </div>
+    </div>
+
+    <div class="photo-card wide" data-index="4" onclick="openLightbox(4)">
+      <img src="Photos/Before 5.jpeg" alt="Panoramic from deck">
+      <div class="photo-caption">
+        <strong>Panoramic &mdash; from the deck</strong>
+        Full-width view from the deck looking out over the backyard. Long afternoon shadows show the terrain clearly. The Bermuda fiberglass pool will occupy the center of this space, with stamped concrete patio surrounding it and a tiered retaining wall at the far edge.
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">&#8249;</button>
+    <img id="lightboxImg" src="" alt="">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+    <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">&#8250;</button>
+  </div>
+</div>
+
+<script>
+  const photos = [
+    { src: 'Photos/Before 1.jpeg', caption: 'View from deck — looking out toward the backyard' },
+    { src: 'Photos/Before 2.jpeg', caption: 'Side view — full hillside grade visible' },
+    { src: 'Photos/Before 3.jpeg', caption: 'Rear of house — slope and deck' },
+    { src: 'Photos/Before 4.jpeg', caption: 'Left side yard' },
+    { src: 'Photos/Before 5.jpeg', caption: 'Panoramic from the deck' },
+  ];
+
+  let current = 0;
+
+  function openLightbox(index) {
+    current = index;
+    updateLightbox();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeLightboxOnBg(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+
+  function navLightbox(dir) {
+    current = (current + dir + photos.length) % photos.length;
+    updateLightbox();
+    event.stopPropagation();
+  }
+
+  function updateLightbox() {
+    document.getElementById('lightboxImg').src = photos[current].src;
+    document.getElementById('lightboxCaption').textContent = photos[current].caption;
+  }
+
+  document.addEventListener('keydown', e => {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navLightbox(-1);
+    if (e.key === 'ArrowRight') navLightbox(1);
+  });
+</script>
+
+</body>
+</html>
