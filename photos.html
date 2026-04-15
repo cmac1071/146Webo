@@ -197,6 +197,20 @@
 
 <div class="page">
 
+  <div class="section-label">Plans &amp; Sketches</div>
+
+  <div class="photo-grid">
+
+    <div class="photo-card wide" data-src="Photos/Pool-patio-fence-sketch-1.jpg" data-caption="Backyard layout sketch — pool, patio, and max-perimeter fence (April 2026)" onclick="openLightboxDirect(this)">
+      <img src="Photos/Pool-patio-fence-sketch-1.jpg" alt="Backyard layout sketch showing pool, patio, and fence perimeter with dimensions">
+      <div class="photo-caption">
+        <strong>Backyard layout &mdash; pool, patio &amp; fence perimeter (roughly to scale)</strong>
+        Black lines = fence perimeter with linear dimensions. Blue polygon = house. Gray = patio/retaining wall zone. Scale: 6 px = 1 ft. Right-side 6 ft gate shown for ride-on mower access; left-side gate not depicted. Elevation changes not shown.
+      </div>
+    </div>
+
+  </div>
+
   <div class="section-label">Before &mdash; Existing Backyard</div>
 
   <div class="photo-grid" id="photoGrid">
@@ -267,7 +281,18 @@
 
   let current = 0;
 
+  function openLightboxDirect(el) {
+    document.getElementById('lightboxImg').src = el.dataset.src;
+    document.getElementById('lightboxCaption').textContent = el.dataset.caption;
+    document.querySelector('.lightbox-prev').style.display = 'none';
+    document.querySelector('.lightbox-next').style.display = 'none';
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
   function openLightbox(index) {
+    document.querySelector('.lightbox-prev').style.display = '';
+    document.querySelector('.lightbox-next').style.display = '';
     current = index;
     updateLightbox();
     document.getElementById('lightbox').classList.add('open');
