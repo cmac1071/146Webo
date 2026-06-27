@@ -165,8 +165,7 @@
   <div class="nav-links">
     <a href="index.html" class="nav-link">Overview</a>
     <a href="contractors.html" class="nav-link">Contractors</a>
-    <a href="pool-comparison.html" class="nav-link">Quote Comparison</a>
-    <a href="budget.html" class="nav-link">Budget</a>
+    <a href="pool-comparison.html" class="nav-link">Pool Types</a>
     <a href="insurance.html" class="nav-link">Insurance</a>
     <a href="permitting.html" class="nav-link">Permitting</a>
     <a href="photos.html" class="nav-link active">Photos</a>
@@ -178,8 +177,7 @@
 <div class="nav-drawer" id="navDrawer">
   <a href="index.html">Overview</a>
   <a href="contractors.html">Contractors</a>
-  <a href="pool-comparison.html">Quote Comparison</a>
-  <a href="budget.html">Budget</a>
+  <a href="pool-comparison.html">Pool Types</a>
   <a href="insurance.html">Insurance</a>
   <a href="permitting.html">Permitting</a>
   <a href="photos.html" class="active">Photos</a>
@@ -192,7 +190,7 @@
 
 <div class="page-hero">
   <h1>Project Photos</h1>
-  <p>146 Westboro Rd, Upton MA &mdash; before construction begins. April 2026.</p>
+  <p>146 Westboro Rd, Upton MA &mdash; construction begins June 29, 2026. Photos ordered: sketch first, then Before, then construction chronologically newest at bottom.</p>
 </div>
 
 <div class="page">
@@ -213,7 +211,7 @@
 
   <div class="section-label">Before &mdash; Existing Backyard</div>
 
-  <div class="photo-grid" id="photoGrid">
+  <div class="photo-grid">
 
     <div class="photo-card" data-index="0" onclick="openLightbox(0)">
       <img src="Photos/Before 1.jpeg" alt="View from driveway toward backyard">
@@ -257,6 +255,28 @@
 
   </div>
 
+  <div class="section-label">June 27, 2026 &mdash; Erosion Control Installation</div>
+
+  <div class="photo-grid">
+
+    <div class="photo-card" data-index="5" onclick="openLightbox(5)">
+      <img src="Photos/June27_1.jpg" alt="Erosion control wattle along treeline, view from house corner">
+      <div class="photo-caption">
+        <strong>Erosion control wattle &mdash; near house corner</strong>
+        Black sediment barrier wattle installed along the perimeter near the treeline, viewed from the house corner. Required by conservation as part of the RDA approval. Construction week begins June 29.
+      </div>
+    </div>
+
+    <div class="photo-card" data-index="6" onclick="openLightbox(6)">
+      <img src="Photos/June27_2.jpg" alt="Erosion control wattle along full treeline, view from deck">
+      <div class="photo-caption">
+        <strong>Erosion control wattle &mdash; full perimeter from deck</strong>
+        View from the deck showing the full run of the sediment barrier along the yard's back edge bordering the wetland buffer. Yard freshly mowed in preparation for excavation.
+      </div>
+    </div>
+
+  </div>
+
 </div>
 
 <!-- LIGHTBOX -->
@@ -272,11 +292,13 @@
 
 <script>
   const photos = [
-    { src: 'Photos/Before 1.jpeg', caption: 'View from deck — looking out toward the backyard' },
-    { src: 'Photos/Before 2.jpeg', caption: 'Side view — full hillside grade visible' },
-    { src: 'Photos/Before 3.jpeg', caption: 'Rear of house — slope and deck' },
-    { src: 'Photos/Before 4.jpeg', caption: 'Left side yard' },
-    { src: 'Photos/Before 5.jpeg', caption: 'Panoramic from the deck' },
+    { src: 'Photos/Before 1.jpeg', caption: 'Before — View from deck looking out toward the backyard' },
+    { src: 'Photos/Before 2.jpeg', caption: 'Before — Side view, full hillside grade visible' },
+    { src: 'Photos/Before 3.jpeg', caption: 'Before — Rear of house, slope and deck' },
+    { src: 'Photos/Before 4.jpeg', caption: 'Before — Right side yard' },
+    { src: 'Photos/Before 5.jpeg', caption: 'Before — Panoramic from the deck' },
+    { src: 'Photos/June27_1.jpg', caption: 'June 27, 2026 — Erosion control wattle installed near house corner' },
+    { src: 'Photos/June27_2.jpg', caption: 'June 27, 2026 — Full sediment barrier perimeter from deck; construction begins June 29' },
   ];
 
   let current = 0;
